@@ -1,0 +1,101 @@
+﻿{% extends "base.html.twig" %}
+
+{% block title %}Liste des Tables{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="bi bi-table"></i>
+                Liste des Tables
+            </h1>
+            <a href="{{ path('app_table_resto_new') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>
+                Créer une nouvelle table
+            </a>
+        </div>
+
+        {% if table_restos is empty %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                Aucune table n'a été créée pour le moment.
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Numéro</th>
+                            <th>Capacité</th>
+                            <th>Réservations</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for table_resto in table_restos %}
+                        <tr>
+                            <td>{{ table_resto.id }}</td>
+                            <td>
+                                <strong>Table {{ table_resto.numero }}</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-primary">
+                                    {{ table_resto.capacite }} personne(s)
+                                </span>
+                            </td>
+                            <td>
+                                {% if table_resto.reservations|length > 0 %}
+                                    <span class="badge bg-warning">
+                                        {{ table_resto.reservations|length }} réservation(s)
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-success">
+                                        Disponible
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ path('app_table_resto_show', {'id': table_resto.id}) }}" 
+                                       class="btn btn-sm btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ path('app_table_resto_edit', {'id': table_resto.id}) }}" 
+                                       class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    {{ include('table_resto/_delete_form.html.twig') }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="{{ path('app_home') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+
+    <style>
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+        
+        .badge {
+            font-size: 0.9em;
+            padding: 0.5em 0.8em;
+        }
+        
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+    </style>
+{% endblock %}

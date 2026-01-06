@@ -1,0 +1,78 @@
+﻿{% extends "base.html.twig" %}
+
+{% block title %}Table {{ table_resto.numero }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">
+                    <i class="bi bi-table"></i>
+                    Table {{ table_resto.numero }}
+                </h2>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ table_resto.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numéro</th>
+                            <td>
+                                <span class="badge bg-primary">
+                                    Table {{ table_resto.numero }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Capacité</th>
+                            <td>
+                                <span class="badge bg-success">
+                                    {{ table_resto.capacite }} personne(s)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Réservations associées</th>
+                            <td>
+                                {% if table_resto.reservations|length > 0 %}
+                                    <ul class="list-group">
+                                    {% for reservation in table_resto.reservations %}
+                                        <li class="list-group-item">
+                                            Réservation #{{ reservation.id }} - 
+                                            {{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y') : 'N/A' }} 
+                                            à {{ reservation.heure ? reservation.heure|date('H:i') : 'N/A' }}
+                                            ({{ reservation.nombrePersonnes }} personne(s))
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <span class="text-muted">Aucune réservation</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('app_table_resto_index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i>
+                        Retour à la liste
+                    </a>
+                    
+                    <div>
+                        <a href="{{ path('app_table_resto_edit', {'id': table_resto.id}) }}" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                            Modifier
+                        </a>
+                        
+                        {{ include('table_resto/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

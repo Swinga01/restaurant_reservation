@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TableResto{% endblock %}
+
+{% block body %}
+    <h1>Create new TableResto</h1>
+
+    {{ include('table_resto/_form.html.twig') }}
+
+    <a href="{{ path('app_table_resto_index') }}">back to list</a>
+{% endblock %}

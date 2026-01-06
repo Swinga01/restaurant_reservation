@@ -1,0 +1,26 @@
+﻿{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Réservation{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="text-center mb-4">
+                <h1 class="display-5 fw-bold text-dark mb-3">
+                    <i class="bi bi-calendar-plus text-primary"></i> Nouvelle Réservation
+                </h1>
+                <p class="lead text-muted">
+                    Remplissez le formulaire ci-dessous pour réserver votre table
+                </p>
+            </div>
+            
+            {{ include('reservation/_form.html.twig', {
+    'reservation': reservation,
+    'form': form,
+    'tableCapacities': tableCapacities
+}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
