@@ -72,31 +72,23 @@ private ?string $telephone = null;
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
+    
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
+ 
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+      
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
+  
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -104,9 +96,7 @@ private ?string $telephone = null;
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
+  
     public function getPassword(): ?string
     {
         return $this->password;
@@ -122,12 +112,10 @@ private ?string $telephone = null;
     #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // @deprecated, to be removed when upgrading to Symfony 8
+      
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
+   
     public function getReservations(): Collection
     {
         return $this->reservations;
@@ -146,7 +134,7 @@ private ?string $telephone = null;
     public function removeReservation(Reservation $reservation): static
     {
         if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
+            
             if ($reservation->getClient() === $this) {
                 $reservation->setClient(null);
             }
